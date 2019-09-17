@@ -1,0 +1,783 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Lab2Code}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}\PY{p}{,} \PY{n}{linear\PYZus{}model}
+\end{Verbatim}
+
+
+    \section{1. Correlations.}\label{correlations.}
+
+    a. When given a data matrix, an easy way to tell if any two columns are
+correlated is to look at a scatter plot of each column against each
+other column. For a warm up, do this: Look at the data in DF1 in Lab2
+Data.zip. Which columns are (pairwise) correlated? Figure out how to do
+this with Pandas, and also how to do this with Seaborn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lab2\PYZus{}Data/DF1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}           0         1         2         3         4
+        0  1.000000 -0.003991  0.008789 -0.004044 -0.007086
+        1 -0.003991  1.000000 -0.003998  0.989869  0.004107
+        2  0.008789 -0.003998  1.000000 -0.003887 -0.989445
+        3 -0.004044  0.989869 -0.003887  1.000000  0.004662
+        4 -0.007086  0.004107 -0.989445  0.004662  1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{df1}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{graph} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The Seaborn graphs corroborate that graphs 1 and 3 are correlated and
+graphs 2 and 4 are correlated.
+
+    b. Compute the covariance matrix of the data. Write the explicit
+expression for what this is, and then use any command you like (e.g.,
+np.cov) to compute the 4 × 4 matrix. Explain why the numbers that you
+get fit with the plots you got.
+
+The covariance between any two columns x and y is (x1 - x\_mean)(y1 -
+y\_mean)/n + (x2 - x\_mean)(y2 - y\_mean)/n + ... + (xn - x\_mean)(yn -
+y\_mean)/n.
+
+The numbers fit with the plots because the covariance of columns that
+are highly correlated are closer to 1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}               0          1          2          3          4
+        0  8.333333e+06 -11.529682  25.437628 -11.681482 -20.508118
+        1 -1.152968e+01   1.001458  -0.004012   0.991523   0.004122
+        2  2.543763e+01  -0.004012   1.005376  -0.003901  -0.995059
+        3 -1.168148e+01   0.991523  -0.003901   1.001885   0.004680
+        4 -2.050812e+01   0.004122  -0.995059   0.004680   1.005973
+\end{Verbatim}
+            
+    c. The above problem in reverse. Generate a zero-mean multivariate
+Gaussian random variable in 3 dimensions, Z = (X1, X2, X3) so that (X1,
+X2) and (X1, X3) are uncorrelated, but (X2, X3) are correlated.
+Specifically: choose a covariance matrix that has the above correlations
+structure, and write this down. Then find a way to generate samples from
+this Gaussian. Choose one of the non-zero covariance terms (Cij, if C
+denotes your covariance matrix) and plot it vs the estimated covariance
+term, as the number of samples you use scales. The goal is to get a
+visual representation of how the empirical covariance converges to the
+true (or family) covariance. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}function for calulating covariance of samples}
+        \PY{k}{def} \PY{n+nf}{estimateCovariance}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{:}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{samples}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+        
+        
+        \PY{n}{mean} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{cov} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{}covariance matrix, X2 and X3 correlated}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Empricial Covariance Convergence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Samples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Covariance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{estimateCovariance}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}lib\textbackslash{}function\_base.py:390: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis)
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}\_methods.py:154: RuntimeWarning: invalid value encountered in true\_divide
+  ret, rcount, out=ret, casting='unsafe', subok=False)
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:4: RuntimeWarning: Degrees of freedom <= 0 for slice
+  after removing the cwd from sys.path.
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}lib\textbackslash{}function\_base.py:2455: RuntimeWarning: divide by zero encountered in true\_divide
+  c *= np.true\_divide(1, fact)
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}AppData\textbackslash{}Roaming\textbackslash{}Python\textbackslash{}Python36\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}lib\textbackslash{}function\_base.py:2455: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true\_divide(1, fact)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{2. Outliers.}\label{outliers.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lab2\PYZus{}Data/DF2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{df2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}jlu90\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}stats\textbackslash{}stats.py:1706: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1d403d21320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{residplot}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{df2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1d40564c6d8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    By plotting the residual graph, we can see that the point (-1, 1) is
+much more of an outlier at residual value 2.0 than the point (5.5, 5)
+which has a residual value of -
+
+    \section{3. Standard Error}\label{standard-error}
+
+     a. Compute the empirical standard deviation of the error for n = 150
+(the number we used in class). In class, in the exercise where I tried
+to find a linear regression of y vs. noise, we found β\^{} = −0.15.
+Given your empirical computation of the standard deviation of the error,
+how significant is the value −0.15? 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{mean} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{std} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{150}
+         \PY{n}{samples} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{std}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{std: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+}  \PY{n+nb}{str}\PY{p}{(}\PY{n}{samples}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+std: 0.9747631284817826
+
+    \end{Verbatim}
+
+    The actual value of β is 0, and the predicted value of β is -0.15. The
+predicted value of -0.15 is not very significant because its less than
+one standard deviation away from the actual value.
+
+     b. Now repeat the above experiment for different values of n. Plot
+these values, and on the same plot, plot 1/sqrt(n). How is the fit?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Empricial Standard Deviation Convergence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Samples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Deviation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{:}
+             \PY{n}{samples} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{std}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{samples}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The emperical standard deviation converges to 1 as n increases. It seems
+to have the same relationship as 1/sqrt(n) but reflected across y=0.5
+
+    \section{4. Names and Frequencies}\label{names-and-frequencies}
+
+     a. Write a program that on input k and XXXX, returns the top k names
+from year XXXX.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{topnames}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{XXXX}\PY{p}{)}\PY{p}{:}
+             \PY{n}{names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Names/Names/yob}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{XXXX}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{topnames}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1995}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+          0  1      2
+0   Jessica  F  27935
+1    Ashley  F  26603
+2     Emily  F  24378
+3  Samantha  F  21646
+4     Sarah  F  21369
+
+    \end{Verbatim}
+
+    b. Write a program that on input Name returns the frequency for men and
+women of the name Name.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{namefrequency}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+             \PY{n}{frequency} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1880}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Names/Names/yob}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{names}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{==} \PY{n+nb}{str}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{frequency} \PY{o}{+}\PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{frequency}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{namefrequency}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{John}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5117331
+
+    \end{Verbatim}
+
+    c. It could be that names are more diverse now than they were in 1880,
+so that a name may be relatively the most popular, though its frequency
+may have been decreasing over the years. Modify the above to return the
+relative frequency. Note that in the next coming lectures we will learn
+how to quantify diversity using entropy 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{relativefrequency}\PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{startYear}\PY{p}{,} \PY{n}{endYear}\PY{p}{)}\PY{p}{:}
+             \PY{n}{totalOccurrences} \PY{o}{=} \PY{l+m+mi}{0}  \PY{c+c1}{\PYZsh{} find total no. occurences in time period}
+             \PY{n}{totalNames} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} find total names recorded in time period}
+             \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{startYear}\PY{p}{,} \PY{n}{endYear}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Names/Names/yob}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{year}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{names}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{totalNames} \PY{o}{+}\PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{==} \PY{n+nb}{str}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{totalOccurrences} \PY{o}{+}\PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+             
+             \PY{n}{frequency} \PY{o}{=} \PY{n}{totalOccurrences}\PY{o}{/}\PY{n}{totalNames}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{name} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s frequency between }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{startYear}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{endYear}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{frequency}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{relativefrequency}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{James}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1890}\PY{p}{,} \PY{l+m+mi}{1900}\PY{p}{)}
+         \PY{n}{relativefrequency}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{James}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{2010}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+James's frequency between 1890-1900: 0.01516893078457864
+James's frequency between 2010-2016: 0.003791415180079932
+
+    \end{Verbatim}
+
+    d. Find all the names that used to be more popular for one gender, but
+then became more popular for another gender. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}get frequencies of men and womens names}
+         \PY{n}{nameFreq\PYZus{}men} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{nameFreq\PYZus{}women} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} 
+         
+         \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1880}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{:}
+             \PY{n}{names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Names/Names/yob}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{year}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{names}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{name} \PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                 \PY{n}{gender} \PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                 \PY{n}{freq} \PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                 
+                 \PY{k}{if} \PY{n}{gender}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{name} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}men}\PY{p}{:}
+                     \PY{n}{listFreq} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{136}  \PY{c+c1}{\PYZsh{} initialize new list of frequencies for name}
+                     \PY{n}{listFreq}\PY{p}{[}\PY{n}{year}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{freq}
+                     \PY{n}{nameFreq\PYZus{}men}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{listFreq} 
+                     
+                 \PY{k}{elif} \PY{n}{gender}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{name} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}men}\PY{p}{:}
+                     \PY{n}{listFreq} \PY{o}{=} \PY{n}{nameFreq\PYZus{}men}\PY{p}{[}\PY{n}{name}\PY{p}{]}  \PY{c+c1}{\PYZsh{} update list of frequencies}
+                     \PY{n}{listFreq}\PY{p}{[}\PY{n}{year}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{freq}
+                     \PY{n}{nameFreq\PYZus{}men}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{listFreq}
+                     
+                 \PY{k}{elif} \PY{n}{gender}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{name} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}women}\PY{p}{:}
+                     \PY{n}{listFreq} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{136}  \PY{c+c1}{\PYZsh{} initialize new list of frequencies for name}
+                     \PY{n}{listFreq}\PY{p}{[}\PY{n}{year}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{freq}
+                     \PY{n}{nameFreq\PYZus{}women}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{listFreq}
+                     
+                 \PY{k}{elif} \PY{n}{gender}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{and} \PY{n}{name} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}women}\PY{p}{:}
+                     \PY{n}{listFreq} \PY{o}{=} \PY{n}{nameFreq\PYZus{}women}\PY{p}{[}\PY{n}{name}\PY{p}{]}  \PY{c+c1}{\PYZsh{} update list of frequencies}
+                     \PY{n}{listFreq}\PY{p}{[}\PY{n}{year}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{freq}
+                     \PY{n}{nameFreq\PYZus{}women}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{listFreq}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{m\PYZus{}w\PYZus{}ratio} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}  \PY{c+c1}{\PYZsh{}find ratios of men to women\PYZsq{}s names}
+         \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}men}\PY{p}{:}
+             \PY{k}{if} \PY{n}{name} \PY{o+ow}{in} \PY{n}{nameFreq\PYZus{}women}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1880}\PY{p}{,} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{menFreq} \PY{o}{=} \PY{n}{nameFreq\PYZus{}men}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]}
+                     \PY{n}{womenFreq} \PY{o}{=} \PY{n}{nameFreq\PYZus{}women}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]}
+                     
+                     \PY{k}{if} \PY{n}{name} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{:}
+                         \PY{n}{ratio} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{136}
+                         \PY{k}{if} \PY{n}{menFreq} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{womenFreq} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{ratio}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{ratio}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{menFreq} \PY{o}{/} \PY{p}{(}\PY{n}{menFreq} \PY{o}{+} \PY{n}{womenFreq}\PY{p}{)}
+                         \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{ratio}
+                         
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{ratio} \PY{o}{=} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}
+                         \PY{k}{if} \PY{n}{menFreq} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{womenFreq} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{ratio}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{ratio}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1880}\PY{p}{]} \PY{o}{=} \PY{n}{menFreq} \PY{o}{/} \PY{p}{(}\PY{n}{menFreq} \PY{o}{+} \PY{n}{womenFreq}\PY{p}{)}
+                         \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{ratio}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} drop names where ratio never crosses 0.5}
+         \PY{n}{droppedNames} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{:}
+             \PY{n}{moreMen} \PY{o}{=} \PY{k+kc}{False}
+             \PY{n}{moreWomen} \PY{o}{=} \PY{k+kc}{False}
+             \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{!=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)} \PY{o+ow}{and} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5}\PY{p}{:}
+                     \PY{n}{moreMen} \PY{o}{=} \PY{k+kc}{True}
+                 \PY{k}{if} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{!=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)} \PY{o+ow}{and} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5}\PY{p}{:}
+                     \PY{n}{moreWomen} \PY{o}{=} \PY{k+kc}{True}
+             
+             \PY{k}{if} \PY{n}{moreMen} \PY{o}{!=} \PY{n}{moreWomen}\PY{p}{:}
+                 \PY{n}{droppedNames}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                 
+         \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{droppedNames}\PY{p}{:}
+             \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Names became more popular for another gender at some point}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{names}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}figwidth}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         
+         \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1880} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{136}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}examples}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{set\PYZus{}text}\PY{p}{(}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{m\PYZus{}w\PYZus{}ratio}\PY{p}{[}\PY{n}{names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4891 Names became more popular for another gender at some point
+['Charley', 'Marion', 'Jessie', 'Sidney', 'Leslie', 'Alva', 'Harley', 'Ollie', 'Monroe', 'Emery', 'Riley', 'Emory', 'Taylor', 'Morgan', 'Elisha', 'Allie', 'Lynn', 'Pink', 'Elza', 'Emerson', 'Jimmie', 'Loren', 'Madison', 'Aubrey', 'Dee', 'Addison', 'Merritt', 'Sandy', 'Cary', 'Merle', 'Pleasant', 'Jules', 'Larkin', 'Dell', 'Fay', 'Smith', 'Tobe', 'Tommie', 'Lou', 'Raleigh', 'Young', 'Carey', 'Elzie', 'Merrill', 'Augustine', 'Bailey', 'Beverly', 'Clair', 'Dana', 'Jean', 'Pat', 'Sol', 'Sydney', 'Early', 'Fate', 'Finley', 'Lindsey', 'Verne', 'Billie', 'Orie', 'Palmer', 'Shirley', 'Sumner', 'Valentine', 'Avery', 'Freddie', 'Lacy', 'Llewellyn', 'Ossie', 'Theo', 'Ashley', 'Bertie', 'Fayette', 'Ivory', 'Odie', 'Oral', 'Otha', 'Shade', 'Shelby', 'Algie', 'Arlie', 'Bird', 'Chancy', 'Gene', 'Golden', 'Hollis', 'Ivey', 'Lindsay', 'Lonie', 'Allison', 'Alpha', 'Clarke', 'Cruz', 'Davie', 'Erie', 'Ernie', 'Harrie', 'Hollie', 'Jessee', 'Michel', 'Oda', 'Reese', 'Sammie', 'Stacy', 'Tracy', 'Vernie', 'Yee', 'Almer', 'Alvia', 'Artie', 'Ashby', 'Augusta', 'Babe', 'Chesley', 'Cleo', 'Edie', 'Gee', 'Halsey', 'Handy', 'Hermon', 'Holly', 'Jodie', 'Justice', 'Kelly', 'Kit', 'Lavern', 'Loran', 'Lorin', 'Merida', 'Nate', 'Nova', 'Orla', 'Orrie', 'Payton', 'Presley', 'Rene', 'Santos', 'Schuyler', 'Starling', 'Unknown', 'Woodie', 'Worthy', 'Bee', 'Paris', 'Byrd', 'Harper', 'Jule', 'Ocie', 'Roe', 'Collins', 'Guadalupe', 'Lue', 'Ashton', 'Collie', 'Curley', 'Lorenza', 'Murphy', 'Adrien', 'Arden', 'Blair', 'Campbell', 'Coley', 'Dennie', 'Ebbie', 'Ellison', 'Emry', 'Garnett', 'Jere', 'Kirby', 'Loy', 'Mannie', 'Marrion', 'Monte', 'Page', 'Robin', 'Shannon', 'Waverly', 'Wing', 'Gail', 'Hilary', 'Lemon', 'Olie', 'Pearley', 'Shelly', 'Alexis', 'Auguste', 'Lennie', 'Lesley', 'Linn', 'Vester', 'Alby', 'Burnett', 'Claudie', 'Cortez', 'Donnie', 'Ellery', 'Garnet', 'Harlow', 'Kay', 'Kelley', 'Leigh', 'Lenzy', 'Love', 'Orva', 'Ottie', 'Toby', 'True', 'Val', 'Jewell', 'Odell', 'Mell', 'Tandy', 'Toy', 'Atlas', 'Chancey', 'Charle', 'Gale', 'Gay', 'Harlie', 'Ingram', 'Joy', 'Linzy', 'Loney', 'Meredith', 'Orel', 'Orra', 'Perl', 'Whitney', 'Son', 'Tollie', 'Vollie', 'Cleon', 'Osie', 'Simmie', 'Zollie', 'Ah', 'Charly', 'Courtney', 'Elgie', 'Gentry', 'Iver', 'Jas', 'Lauren', 'Luby', 'Man', 'Maryland', 'Peyton', 'Vere', 'Arley', 'Earlie', 'Lark', 'Laverne', 'Milan', 'Audie', 'Cris', 'Elon', 'Henri', 'Lisle', 'Onnie', 'Orlie', 'Ova', 'Perle', 'Refugio', 'Rennie', 'Sloan', 'Wallie', 'Merl', 'Lacey', 'Laurie', 'Lovell', 'Tomie', 'Acey', 'Amil', 'Britt', 'Christy', 'Harlin', 'London', 'Meddie', 'Montie', 'Murl', 'Patsy', 'Tobie', 'Ura', 'Vergil', 'Yancy', 'Ethelbert', 'Arnie', 'Bliss', 'Hillery', 'Laurel', 'Orr', 'Prentiss', 'Ran', 'Carlisle', 'Angel', 'Burnie', 'Maxie', 'Casey', 'Hillary', 'Holland', 'Le', 'Moe', 'Posey', 'Shellie', 'Temple', 'Vannie', 'Carlie', 'Maury', 'Foy', 'Genie', 'Lish', 'Abie', 'Alver', 'Claiborne', 'English', 'Lemmie', 'Linden', 'Robbie', 'Romie', 'Swan', 'Sing', 'Mckinley', 'Neely', 'Auburn', 'Beryl', 'Carrol', 'Elvie', 'Levie', 'Sheridan', 'Jonnie', 'Berkley', 'Dossie', 'Jolly', 'Kelsey', 'Lake', 'Rossie', 'Alba', 'Encarnacion', 'Hartley', 'Lannie', 'Amzie', 'Cam', 'Carlyle', 'Clemmie', 'Elba', 'Ludie', 'Mallie', 'Murel', 'Robie', 'Estel', 'Mayo', 'Shelley', 'Aubra', 'Avon', 'Dannie', 'Ferris', 'Jeffie', 'Ara', 'Christie', 'Clemence', 'Doll', 'Elwyn', 'Leighton', 'Percie', 'Sonnie', 'Willia', 'Mearl', 'Oddie', 'Audy', 'Esley', 'Gillie', 'Arie', 'Carry', 'Vernal', 'Gaither', 'Guthrie', 'Lindley', 'Verl', 'Macy', 'Saint', 'Silver', 'Offie', 'Acy', 'Estle', 'Irby', 'Jamie', 'Myrl', 'Ivor', 'Kennie', 'Lyn', 'Ovie', 'Rue', 'Frankie', 'Dabney', 'Diamond', 'Ezell', 'Carnell', 'Farris', 'Onie', 'Winslow', 'Arba', 'Gayle', 'Mickey', 'Embry', 'Carmon', 'Lin', 'Macon', 'Murrel', 'Murrell', 'Haven', 'Elizah', 'Berlin', 'Lupe', 'Perrin', 'Waddie', 'Tallie', 'Ozie', 'Sinclair', 'Bobby', 'Cordie', 'Lowry', 'Ozzie', 'Trinidad', 'Azel', 'Iley', 'Rosario', 'Chandler', 'Elver', 'Kinnie', 'Larue', 'Lugene', 'March', 'Pet', 'Reyes', 'Sunny', 'Teddie', 'Carman', 'Every', 'Rainey', 'Georgie', 'Burnice', 'Farrell', 'Sharon', 'Arleigh', 'Earnie', 'Jan', 'Mel', 'Orbie', 'Samie', 'Sun', 'Ardis', 'Jame', 'Dailey', 'Fidelis', 'Joan', 'Laurice', 'Myrle', 'Ronnie', 'Arbie', 'Gerry', 'Aubry', 'Cletis', 'Cordell', 'Gates', 'Brownie', 'Carle', 'Jackie', 'Linsey', 'Opie', 'Bell', 'Merced', 'Carlin', 'Gordie', 'Ivery', 'Michele', 'Norvell', 'Othel', 'Ermine', 'Hadley', 'Reggie', 'Vearl', 'Arlis', 'Burlie', 'Cleophas', 'Kendall', 'Loyce', 'Natale', 'Natividad', 'Verle', 'Wray', 'Zeddie', 'Ardell', 'Aime', 'Wille', 'Arville', 'Bo', 'Byrl', 'Dacie', 'Emer', 'Hawley', 'Ivon', 'Jimie', 'Langley', 'Marvel', 'Vestal', 'Linzie', 'Allyn', 'Emerald', 'Laddie', 'Nicola', 'Currie', 'Malon', 'Merlyn', 'Rollins', 'Ozell', 'Aquilla', 'Arlen', 'Arrie', 'Del', 'Ermal', 'Lavere', 'Morley', 'Oval', 'Selby', 'Halley', 'Arlin', 'Merril', 'Adell', 'Afton', 'Australia', 'Gradie', 'Jody', 'Rivers', 'Ventura', 'Bobie', 'Choice', 'Curlee', 'Curlie', 'Daily', 'Johan', 'Kelsie', 'Laurin', 'Lavon', 'Marlow', 'Maron', 'Romey', 'Salome', 'Tee', 'Thelmer', 'Timmie', 'Vernell', 'Veron', 'Zennie', 'Colie', 'Atlee', 'Garnie', 'Ival', 'Hiawatha', 'Jo', 'Wallis', 'Welcome', 'Almo', 'Carney', 'Clarion', 'Constant', 'Elis', 'Ervie', 'Fiore', 'Glennie', 'Hildred', 'Holley', 'Karol', 'Keller', 'Lattie', 'Lavette', 'Marshel', 'Massie', 'Merrell', 'Michal', 'Monnie', 'Tobbie', 'Vonnie', 'Sherrill', 'Ardie', 'Luverne', 'Bernis', 'Bernell', 'Deane', 'Loris', 'Romaine', 'Ermon', 'Eura', 'Americus', 'Mabry', 'Monico', 'Orba', 'Addis', 'Athel', 'Beverley', 'Carlee', 'Delaney', 'France', 'Lennis', 'Loys', 'Ruble', 'Sutton', 'Takeshi', 'Avis', 'Carles', 'Elzia', 'Garnell', 'Happy', 'Hastings', 'Juel', 'Lauri', 'Lemoyne', 'Lewellyn', 'Marcell', 'Mc', 'Orian', 'Stirling', 'Thayer', 'Udell', 'Wilsie', 'Zannie', 'Amor', 'Ardean', 'Argyle', 'Arlyn', 'Asencion', 'Aster', 'Bela', 'Boots', 'Carley', 'Carlis', 'Carmie', 'Caroll', 'Channing', 'Claudy', 'Crosby', 'Dail', 'Delore', 'Dominique', 'Ercell', 'Greer', 'Henley', 'Hyland', 'Jacque', 'Jacy', 'Johann', 'Jonie', 'Jonny', 'Kennedy', 'Kim', 'Lacie', 'Lauris', 'Lenox', 'Ludy', 'Lundy', 'Luvern', 'Marlowe', 'Masami', 'Meril', 'Merrit', 'Orlean', 'Otie', 'Patterson', 'Pressley', 'Salem', 'Sander', 'Tevis', 'Velmer', 'Vertis', 'Veryl', 'Wendelin', 'Windsor', 'Wynn', 'Limmie', 'Autry', 'Dayle', 'Arnel', 'Clester', 'Corliss', 'Stacey', 'Akira', 'Carrington', 'Glennis', 'Katsumi', 'Lavelle', 'Mirl', 'Moran', 'Berthel', 'Clois', 'Ersel', 'Hanley', 'Loye', 'Marlyn', 'Mozell', 'Murle', 'Arvis', 'Aubery', 'Berkeley', 'Bunnie', 'Casmir', 'Cornie', 'Darby', 'Ferrel', 'Marin', 'Marshell', 'Maurie', 'Nollie', 'Normal', 'Pilar', 'Rexie', 'Rudie', 'Scottie', 'Talbot', 'Vernel', 'Vernet', 'Willett', 'Abney', 'Amando', 'Ansley', 'Ariel', 'Arvie', 'Averill', 'Barber', 'Carmin', 'Connell', 'Duffie', 'Evon', 'Felis', 'Garcia', 'Hue', 'Ivie', 'Kimble', 'Ladell', 'Lavell', 'Lennon', 'Lenzie', 'Leverne', 'Lorain', 'Lorrin', 'Lovis', 'Lowe', 'Lyndal', 'Mar', 'Merel', 'Nieves', 'Numa', 'Okie', 'Othello', 'Perlie', 'Quincey', 'Ramey', 'Rassie', 'Reagan', 'Staley', 'Starlin', 'Verdi', 'Kellie', 'Devon', 'Gean', 'Celester', 'Dallis', 'Paige', 'Quay', 'Autrey', 'Germain', 'Kearney', 'Lanier', 'Santi', 'Verlyn', 'Adair', 'Alley', 'Artee', 'Cola', 'Cosby', 'Doyne', 'Ercil', 'Harvest', 'Levis', 'Marley', 'Nemiah', 'Oree', 'Ritchie', 'Roye', 'Starr', 'Valley', 'Aldie', 'Arlow', 'Berlie', 'Bertice', 'Bradie', 'Chriss', 'Clancy', 'Esper', 'Gilliam', 'Greeley', 'Ireland', 'Lamoine', 'Leone', 'Macey', 'Maxey', 'Nickie', 'Odel', 'Oney', 'Remy', 'Sherrell', 'Summers', 'Valery', 'Weslie', 'Wilkie', 'Abbey', 'Adel', 'Amel', 'Arnell', 'Ascension', 'Azell', 'Brooke', 'Challis', 'Charl', 'Charleston', 'Chelsea', 'Clio', 'De', 'Dewie', 'Elvy', 'Eppie', 'Ercel', 'Ether', 'Fair', 'Hillory', 'Idris', 'Jerre', 'Kam', 'Kaoru', 'Key', 'Kimber', 'Lavaughn', 'Loral', 'Lurie', 'Maitland', 'Mallory', 'Malone', 'Myrel', 'Nebraska', 'Olis', 'Onell', 'Osa', 'Ovel', 'Penrose', 'Posie', 'Rannie', 'Reedie', 'Rino', 'Rockie', 'Rosell', 'Seeley', 'Talley', 'Verdell', 'Verdis', 'Vivan', 'Whitley', 'Zell', 'Zenith', 'Arlee', 'Faris', 'Dorsie', 'Julis', 'Darcy', 'Shirl', 'Vernis', 'Kazumi', 'Lynden', 'Carrell', 'Chaney', 'Desire', 'Emmerson', 'Marlen', 'Rudell', 'Clary', 'Dorian', 'El', 'Ermel', 'Leotis', 'Matty', 'Quinn', 'Remi', 'Ridley', 'Willet', 'Bristol', 'Carnie', 'Coye', 'Daris', 'Kenna', 'Lyndell', 'Marlo', 'Marx', 'Merion', 'Odean', 'Tonnie', 'Ysabel', 'Alder', 'Alie', 'Alvern', 'Amory', 'Andie', 'Arcie', 'Augie', 'Burnette', 'Carel', 'Courtenay', 'Daley', 'Day', 'Drue', 'Egan', 'Eslie', 'Fortune', 'Gaylen', 'Gwyn', 'Isa', 'Izell', 'Jessy', 'Joey', 'Kara', 'Lummie', 'Lunnie', 'Lynell', 'Marce', 'Maylon', 'Miley', 'Money', 'Muril', 'Orean', 'Parish', 'Pernell', 'Plumer', 'Ronda', 'Santana', 'Shady', 'Sherley', 'Tonie', 'Tracey', 'Vel', 'Veril', 'Aldine', 'Aloise', 'Alter', 'Arbor', 'Beryle', 'Blythe', 'Brook', 'Bunny', 'Clellie', 'Clennie', 'Earlee', 'Espie', 'Ezelle', 'Georg', 'Glendale', 'Glendell', 'Hager', 'Hannon', 'Harlee', 'Hollice', 'Irie', 'Jammie', 'Jene', 'Kendal', 'Lace', 'Lesslie', 'Lorren', 'Lorry', 'Lory', 'Maris', 'Marvis', 'Maywood', 'Mearle', 'Merdith', 'Murlyn', 'Myrlin', 'Nevel', 'Olice', 'Ordie', 'Orell', 'Oria', 'Patsey', 'Paz', 'Pendleton', 'Redell', 'Ren', 'Revel', 'Rozell', 'Vail', 'Vandy', 'Vennie', 'Wardie', 'Wavie', 'Willoughby', 'Albie', 'Nealy', 'Verble', 'Commie', 'Ezzie', 'Karel', 'Lile', 'Memphis', 'Artell', 'Eldie', 'Erbie', 'Gwin', 'Gwynn', 'Haley', 'Harlo', 'Hilery', 'Hollan', 'Jaime', 'Laney', 'Leith', 'Liberty', 'Mackie', 'Ordell', 'Sunday', 'Wynne', 'Aris', 'Berlyn', 'Donel', 'Edell', 'Emary', 'Erlin', 'Fiori', 'Hensley', 'Honore', 'Jobie', 'Lanis', 'Loel', 'Marchel', 'Montrose', 'Nesbit', 'Tharon', 'Velmar', 'Yvon', 'Zan', 'Adna', 'Aner', 'Arel', 'Artice', 'Arvi', 'Ascencion', 'Bay', 'Burnes', 'Carmi', 'Christen', 'Codie', 'Coma', 'Corry', 'Dickie', 'Dorcie', 'Eldean', 'Emeral', 'Emsley', 'Enis', 'Ensley', 'Eris', 'Ever', 'Grier', 'Hally', 'Harlowe', 'Izzy', 'Jadie', 'Jhonnie', 'Leaster', 'Lotis', 'Mancy', 'Merley', 'Meron', 'Omega', 'Oswin', 'Ovell', 'Quilla', 'Rosemond', 'Rowan', 'Seraphin', 'Wilmoth', 'Zebbie', 'Bracy', 'Cledith', 'Darris', 'Malen', 'Osceola', 'Yoshimi', 'Arliss', 'Doral', 'Martell', 'Sakae', 'Vesper', 'Arzell', 'Clevie', 'Eden', 'Kennis', 'Larrie', 'Lenis', 'Linley', 'Loddie', 'Sibley', 'Void', 'Wadie', 'Adie', 'Arless', 'Ary', 'Camile', 'Fonnie', 'Kary', 'Kinley', 'Kinsey', 'Lasalle', 'Rochell', 'Adis', 'Alfie', 'Ardel', 'Ardine', 'Argusta', 'Artha', 'Bev', 'Bond', 'Camiel', 'Cleary', 'Corley', 'Dene', 'Dietrich', 'Eldrid', 'Elree', 'Emo', 'Estee', 'Eudell', 'Finnie', 'Flory', 'Juddie', 'Junnie', 'Kiah', 'Lamoyne', 'Landry', 'Landy', 'Lovely', 'Marris', 'Massey', 'Mckenzie', 'Mckinney', 'Medley', 'Meridith', 'Nicky', 'Oza', 'Pal', 'Parris', 'Payson', 'Raney', 'San', 'Saylor', 'Talma', 'Trenidad', 'Ursel', 'Vale', 'Varnell', 'Veo', 'Wren', 'Victory', 'Marne', 'Real', 'Summer', 'Atley', 'Cyrille', 'Glyndon', 'Hilaire', 'Texas', 'Cantrell', 'Chanel', 'Criss', 'Layne', 'Berdell', 'Cubie', 'Eldee', 'Elve', 'Emra', 'Florenz', 'Lay', 'Loice', 'Lu', 'Perrie', 'Ripley', 'Rozelle', 'Shirly', 'Verley', 'Veryle', 'Adley', 'Arion', 'Barnell', 'Cannie', 'Carlas', 'Chancie', 'Claudell', 'Corlis', 'Eurie', 'Fayne', 'Ferrol', 'Fran', 'Frenchie', 'Garrie', 'Ilo', 'Issie', 'Ivel', 'Ivis', 'Jae', 'Juell', 'Kellis', 'Kenzie', 'Lavan', 'Lonell', 'Lorell', 'Luddie', 'Merit', 'Murtha', 'Ovis', 'Ronie', 'Vinnie', 'Warnell', 'Zelmer', 'Adrin', 'Lorrain', 'Cleotha', 'Byrle', 'Gaynor', 'Jemmie', 'Marvie', 'Nellis', 'Ather', 'Carris', 'Dove', 'Hala', 'Harlyn', 'Ledell', 'Mosie', 'Ramie', 'Syd', 'Aldean', 'Algia', 'Bennette', 'Cay', 'Chan', 'Climmie', 'Elgia', 'Fernie', 'Gearl', 'Innis', 'Leal', 'Lean', 'Linell', 'Monta', 'Roddie', 'Sunnie', 'Tinsley', 'Venis', 'Waverley', 'Alfonsa', 'Andrell', 'Arlice', 'Armistice', 'Azriah', 'Baby', 'Bentura', 'Berthal', 'Binnie', 'Blaney', 'Claren', 'Danie', 'Donis', 'Dory', 'Embree', 'Ferron', 'Ferry', 'Gael', 'Hilliary', 'Hollace', 'Jesie', 'Jissie', 'Lanny', 'Leary', 'Lesly', 'Lindsy', 'Lovern', 'Marcelle', 'Mckinly', 'Murphey', 'Novis', 'Othell', 'Richie', 'Sequoyah', 'Star', 'Stevie', 'Sylvesta', 'Tenny', 'Theoda', 'Vermont', 'Wilmeth', 'Danel', 'Jessey', 'Leonides', 'Marvell', 'Dosie', 'Emmery', 'Foye', 'Kaye', 'Marice', 'Odia', 'Trine', 'Blakely', 'Charlis', 'Chee', 'Fain', 'Kaname', 'Kei', 'Leotha', 'Lessley', 'Mckenley', 'Nazareth', 'Paulie', 'Rease', 'Ange', 'Arguster', 'Bowie', 'Brazil', 'Cashmere', 'Conda', 'Dois', 'Donnis', 'Doren', 'Doye', 'Eron', 'Feliz', 'Geral', 'Gold', 'Gwynne', 'Hiromi', 'Hyatt', 'Jaye', 'Larren', 'Lyndall', 'Mabrey', 'Mayne', 'Meritt', 'Ming', 'Murriel', 'Ogie', 'Regan', 'Rio', 'Ruey', 'Truby', 'Vee', 'Ynes', 'Ive', 'Junis', 'Carlon', 'Cedell', 'Henny', 'Noris', 'Modie', 'Nay', 'Paxton', 'Arlynn', 'Aven', 'Brit', 'Christain', 'Dea', 'Donie', 'Dorn', 'Emel', 'Kerry', 'Kiyomi', 'Lawrene', 'Quillie', 'Seiko', 'Troyce', 'Waver', 'Chesleigh', 'Clea', 'Dare', 'Eddis', 'Ellington', 'Gwinn', 'Iran', 'Iria', 'Jeffrie', 'Jennis', 'Laverl', 'Lejeune', 'Loverne', 'Lovette', 'Lyndol', 'Melvis', 'Nickey', 'Olee', 'Raven', 'Romney', 'Sage', 'Sherrel', 'Soon', 'Tyra', 'Virdell', 'Wannie', 'Cuba', 'Elliotte', 'Evern', 'Toshi', 'Delane', 'Hailey', 'Mikey', 'Semon', 'Asie', 'Elize', 'Laury', 'Marchell', 'Ramsay', 'Robby', 'Tommye', 'Amo', 'Beebe', 'Breland', 'Challie', 'Chapin', 'Chappell', 'Corby', 'Deon', 'Excel', 'Henly', 'Imon', 'Italy', 'Janus', 'Jona', 'Jone', 'Lael', 'Lenell', 'Martie', 'Mays', 'Oakie', 'Odene', 'Orea', 'Ronel', 'Tai', 'Tannie', 'Tellie', 'Toye', 'Veral', 'Hiro', 'Wandell', 'Virgin', 'Asuncion', 'Hong', 'Laren', 'Ore', 'Ragan', 'Southern', 'Verlen', 'Wellesley', 'Bevan', 'Cleofas', 'Cloudie', 'Emlyn', 'Hermie', 'Illinois', 'Laurell', 'Lindy', 'Melvine', 'Novel', 'Orlanda', 'Seraphim', 'Shinobu', 'Yoshi', 'Barrie', 'Cory', 'Devan', 'Terral', 'Averil', 'Bivian', 'Coda', 'Donzell', 'Dwan', 'Jeryl', 'Kenley', 'Ozel', 'Tam', 'Tobey', 'Wildred', 'Merriel', 'Shelvy', 'Valgene', 'Trini', 'Abell', 'Joddie', 'Mavin', 'Prue', 'Sherril', 'Aren', 'Arly', 'Bernett', 'Cleaster', 'Clemie', 'Everal', 'Franky', 'Irish', 'Johne', 'Mardell', 'Merce', 'Mickie', 'Lafon', 'Lyndel', 'Adison', 'Autie', 'La', 'Marzell', 'Tally', 'Tanis', 'Albany', 'Chong', 'Clydie', 'Flores', 'Kayo', 'Markie', 'Marrin', 'Michell', 'Waldean', 'Cozy', 'Maclyn', 'Bevely', 'Corris', 'Dariel', 'Joda', 'Merideth', 'Bille', 'Dann', 'Dusty', 'Elgene', 'Jensen', 'Jessel', 'Laurien', 'Linzey', 'Si', 'Unice', 'Lind', 'Corky', 'Fontaine', 'Alexius', 'Caley', 'Mosley', 'Alee', 'Alyn', 'Arkie', 'Bergen', 'Gwendell', 'Hollister', 'Joie', 'Lyric', 'Meryle', 'Norvelle', 'Reecie', 'Vero', 'Daune', 'Harly', 'Nigel', 'Paddy', 'Frankey', 'Jessa', 'Lavone', 'Lolo', 'Martine', 'Monell', 'Robbin', 'Sharman', 'Carlen', 'Elice', 'Laverle', 'Choyce', 'Consepcion', 'Kelcy', 'Trellis', 'Alix', 'Alvine', 'Daun', 'Delone', 'Duanne', 'Glenis', 'Ladon', 'Laray', 'Lavert', 'Luegene', 'Shearl', 'Ynez', 'Darle', 'Shirrell', 'Darriel', 'Rudi', 'Delynn', 'Henrie', 'Shawn', 'Sherill', 'Alonzia', 'Conny', 'Gaylin', 'Jamison', 'Jerol', 'Mannon', 'Armer', 'Clydell', 'Laramie', 'Mylan', 'Terril', 'Darling', 'Linder', 'Rickie', 'Romy', 'Shay', 'Sheryl', 'Delayne', 'Haroldean', 'Valdean', 'Adgie', 'Delain', 'Delona', 'Dester', 'Donne', 'Ebby', 'Izel', 'Lydell', 'Micky', 'Sheril', 'Sherl', 'Algene', 'Lavalle', 'Myran', 'Ronell', 'Shelvie', 'Wonnie', 'Doney', 'Jaycee', 'Johnell', 'Karry', 'Sherald', 'Shirrel', 'Haile', 'Corrin', 'Marle', 'Ravon', 'Caron', 'Cayce', 'Karon', 'Levarn', 'Malin', 'Truly', 'Renny', 'Darley', 'Sherron', 'Alexie', 'Danne', 'Larell', 'Renn', 'Selester', 'Darnel', 'Rogue', 'Myril', 'Narvell', 'Danney', 'Karey', 'Kris', 'Pepper', 'Ravin', 'Sharron', 'Starley', 'Tal', 'Karle', 'Rommy', 'Vallee', 'Gari', 'Jaren', 'Jeris', 'Lannis', 'Layle', 'Lorel', 'Raydean', 'Terryl', 'Darian', 'Karrol', 'Brinkley', 'Carliss', 'Joal', 'Joby', 'Tay', 'Tarry', 'Trevis', 'Vondell', 'Lennell', 'Levone', 'Luckie', 'Luren', 'Ronnye', 'Sherell', 'Torrance', 'Coby', 'Rell', 'Mikell', 'Findley', 'Glenny', 'Lany', 'Luzell', 'Neddie', 'Olly', 'Stonie', 'Velvet', 'Yong', 'Dorie', 'Kerby', 'Kem', 'Costello', 'Delmis', 'Kristian', 'Montana', 'Ricki', 'Rox', 'Jerris', 'Terrace', 'Teryl', 'Mikal', 'Cortney', 'Garlyn', 'Rooney', 'Sheron', 'Romell', 'Terre', 'Denys', 'Ferrin', 'Jamey', 'Lavorn', 'Rande', 'Ricci', 'Rondie', 'Ronne', 'Rowen', 'Shan', 'Wyn', 'Randie', 'Carlan', 'Dannye', 'Breck', 'Colyn', 'Delacy', 'Dezzie', 'Dinnie', 'Jung', 'Larie', 'Terran', 'Terris', 'Sung', 'Dalis', 'Galyn', 'Ridgely', 'Dany', 'Ki', 'Krist', 'Linnell', 'Storm', 'Tary', 'Torry', 'Bryn', 'Tory', 'Danis', 'Rikki', 'Mauri', 'Mikie', 'Shalom', 'Daney', 'Dorin', 'Jade', 'Stormy', 'Tolly', 'Rian', 'Jann', 'Jersey', 'Lan', 'Marquette', 'Riki', 'Brand', 'Desi', 'Guadlupe', 'Karroll', 'Kayle', 'Tanny', 'Terrylee', 'Verlynn', 'Keary', 'Mardy', 'Michae', 'Dandy', 'Darien', 'Johnel', 'Lafrance', 'Andree', 'Demetris', 'Graylin', 'Kriss', 'Arlanda', 'Cheyenne', 'Garie', 'Kippy', 'Monti', 'Nickola', 'Rossi', 'Shayne', 'Shon', 'Dru', 'Skeeter', 'Bevin', 'Vonn', 'Ainsley', 'Dore', 'Raydell', 'Verdel', 'Choya', 'Bronnie', 'Daniell', 'Kimmy', 'Laine', 'Thoma', 'Aly', 'Brunell', 'Cappy', 'Christon', 'Darrie', 'Francell', 'Kelcie', 'Kimm', 'Lindsley', 'Lutrell', 'Lynel', 'Rajah', 'Roni', 'Sande', 'Stanlee', 'Sugar', 'Tippy', 'Win', 'Aundra', 'Neri', 'Randyl', 'Darcel', 'Davi', 'Lanell', 'Dannel', 'Dian', 'Farren', 'Kasey', 'Kevyn', 'Kristan', 'Marke', 'Mcrae', 'Patt', 'Roi', 'Shanon', 'Shell', 'Tae', 'Terriel', 'Wydell', 'Farron', 'Kimmie', 'Jimi', 'Kym', 'Sky', 'Ohara', 'Reilly', 'Rein', 'Rocklyn', 'Buff', 'Cordy', 'Dalas', 'Danni', 'Jermaine', 'Karlin', 'Kitt', 'Montez', 'Nevada', 'Orise', 'Torey', 'Callen', 'Tyran', 'Kerin', 'Renne', 'Kendel', 'Michie', 'Olanda', 'Rimas', 'Skyler', 'Anjel', 'Dayl', 'Deven', 'Ertis', 'Kellen', 'Kimothy', 'Mckinsey', 'Pier', 'Rebel', 'Saxon', 'Shea', 'Tinker', 'Undra', 'Dary', 'Kippie', 'Renell', 'Devine', 'Graylyn', 'Lyndale', 'Mardie', 'Mickell', 'Raynell', 'Sami', 'Shaya', 'Stevy', 'Dondi', 'Jayce', 'Kameron', 'Roben', 'Ande', 'Andri', 'Barri', 'Larsen', 'Pharon', 'Bren', 'Coty', 'Demetrice', 'Larin', 'Ondra', 'Raegan', 'Raffie', 'Roche', 'Tris', 'Danell', 'Darrelle', 'Corneal', 'Gerd', 'Gere', 'Jode', 'Mendy', 'Stevee', 'Torre', 'Tyronza', 'Callan', 'Denni', 'Farrin', 'Kiernan', 'Krishna', 'Lajuan', 'Larkie', 'Mical', 'Peppi', 'Rayne', 'Rus', 'Tres', 'Zonnie', 'Dace', 'Jaimie', 'Angle', 'Devery', 'Durelle', 'Kellan', 'Monserrate', 'Ala', 'Bonell', 'Briane', 'Bryne', 'Corinthian', 'Danyl', 'Daryn', 'Demetric', 'Derrie', 'Jammy', 'Jari', 'Nathel', 'Rorie', 'Shann', 'Tovia', 'Verneal', 'Nikita', 'Skylar', 'Kalen', 'Jai', 'Kalin', 'Mica', 'Valen', 'Christan', 'Ciaran', 'Jodey', 'Juda', 'Tore', 'Vada', 'Dannell', 'Dezi', 'Ermie', 'Jet', 'Kalani', 'Lougene', 'Shaune', 'Undrea', 'Khris', 'Mika', 'Arnez', 'Raymie', 'Antonie', 'Larri', 'Stace', 'Carrey', 'Dobbie', 'Jamy', 'Nico', 'Devry', 'Erice', 'Javon', 'Kimbrell', 'Lawren', 'Macheal', 'Mechel', 'Nikola', 'Rodie', 'Shia', 'Wan', 'Robi', 'Yuri', 'Jin', 'Arin', 'Danieal', 'Doni', 'Gabriele', 'Kenyatta', 'Kery', 'Lavoris', 'Micha', 'Tabor', 'Troye', 'Devone', 'Gudalupe', 'Kriston', 'Marte', 'Mitchelle', 'Rayme', 'Stephane', 'Deion', 'Jonatha', 'Schell', 'Daine', 'Dandrea', 'Yarnell', 'Andrian', 'Daniele', 'Kacy', 'Niko', 'Raylen', 'Robben', 'Shawne', 'Tarrell', 'Robbe', 'Stevey', 'Jaydee', 'Danon', 'Kallen', 'Levonne', 'Beni', 'Blakley', 'Darnelle', 'Demetre', 'Deniz', 'Elan', 'Eri', 'Farin', 'Geryl', 'Jem', 'Michaele', 'Rami', 'Taron', 'Ladale', 'Klark', 'Deshawn', 'Kenndy', 'Audre', 'Kendle', 'Nephtali', 'Shawnn', 'Shenandoah', 'Dione', 'Alexi', 'Lashawn', 'Shenan', 'Teal', 'Darly', 'Jer', 'Krister', 'Shanton', 'Twan', 'Dejon', 'Errin', 'Tobi', 'Britain', 'Demetrie', 'Deshon', 'Lashon', 'Shandon', 'Bria', 'Chawn', 'Dakota', 'Danyel', 'Devonne', 'Karson', 'Lovelle', 'Rendy', 'Savoy', 'Scotti', 'Sharn', 'Terren', 'Eran', 'Sascha', 'Shone', 'Cidney', 'Corin', 'Germaine', 'Raja', 'Rashawn', 'Kelcey', 'Lashaun', 'Shanen', 'Tremaine', 'Yuval', 'Camaro', 'Delancey', 'Donelle', 'Jordi', 'Kamron', 'Lesile', 'Telly', 'Unk', 'Kiley', 'Blue', 'Dominque', 'Lashun', 'Brandyn', 'Brittain', 'Varian', 'Chaka', 'Christien', 'Criston', 'Deone', 'Erike', 'Mischa', 'Roshawn', 'Shanan', 'Tarron', 'Yardley', 'Cassidy', 'Dannon', 'Dashawn', 'Dayan', 'Deshane', 'Deshaun', 'Donyale', 'Dorain', 'Dorren', 'Han', 'Jerzy', 'Khristian', 'Marvelle', 'Miko', 'Phalon', 'Phoenix', 'Sloane', 'Terah', 'Corie', 'Dushon', 'Ilya', 'Marquise', 'Tirrell', 'Channon', 'Quan', 'Taj', 'Deshun', 'Java', 'Shiloh', 'Terrin', 'Darriell', 'Deonne', 'Detrich', 'Donnelle', 'Dynell', 'Imari', 'Joell', 'Leshawn', 'Marnell', 'Pasha', 'Adrean', 'Collen', 'Detric', 'Donyell', 'Edil', 'Gen', 'Jia', 'Jojo', 'Kimani', 'Lior', 'Montoya', 'Neftaly', 'Neko', 'Rayshawn', 'Rhyan', 'Sheon', 'Shondell', 'Song', 'Taiwan', 'Taren', 'Torence', 'Yu', 'Sacha', 'Ashanti', 'Latrell', 'Rama', 'Taris', 'Aries', 'Marquel', 'Shilo', 'Arian', 'Cheney', 'Demetrias', 'Jayde', 'Kiran', 'Shawndell', 'Laroyce', 'Osiris', 'Ason', 'Brette', 'Charon', 'Chi', 'Deshannon', 'Dorien', 'Iram', 'Justyn', 'Kayne', 'Korby', 'Koy', 'Lavonn', 'Mico', 'Tao', 'Troi', 'Wei', 'Aeron', 'Arrin', 'Arrington', 'Blu', 'Cheyney', 'Danta', 'Deshone', 'Freedom', 'Jacquin', 'Jalon', 'Jericho', 'Kobi', 'Kyley', 'Lasean', 'Marqui', 'Mikele', 'Montique', 'Montrice', 'Musa', 'Perryn', 'Rashon', 'Roshon', 'Shaka', 'Tarren', 'Tarrin', 'Tawan', 'Tayari', 'Trinell', 'Wai', 'Jamaine', 'Demea', 'Jamell', 'Adi', 'Alika', 'Donyel', 'Joon', 'Keita', 'Taran', 'Aaren', 'Dashan', 'Ori', 'Rain', 'Shamon', 'Shonnon', 'Torino', 'Aki', 'Ako', 'Amery', 'Ja', 'Jermanie', 'Shai', 'Torance', 'Baraka', 'Britten', 'Demetress', 'Des', 'Fernell', 'Kenyata', 'Min', 'Navada', 'Rasheen', 'Xan', 'Altie', 'Andrel', 'Aquarius', 'Arrow', 'Billyjo', 'Briar', 'Camara', 'Chalon', 'Chane', 'Charron', 'Deejay', 'Deshan', 'Diarra', 'Domonique', 'Edris', 'Heathe', 'Irin', 'Josha', 'Kindell', 'Nairobi', 'Neco', 'Nima', 'Ranell', 'Rejean', 'Semaj', 'Shanne', 'Terrice', 'Toriana', 'Trenell', 'Vanness', 'Kareen', 'Keyon', 'Akili', 'Kenyatte', 'Videl', 'Iman', 'Marshawn', 'Vashon', 'Tamer', 'Hyun', 'Lawan', 'Leshon', 'Tramaine', 'Dorrian', 'Jawan', 'Kenyada', 'Kiowa', 'Rashi', 'Shale', 'Videll', 'Altonia', 'Azriel', 'Darshan', 'Jaimy', 'Jamine', 'Kijana', 'Laquan', 'Leshun', 'Shamar', 'Taiwo', 'Tyrese', 'Aryn', 'Cayle', 'Cedar', 'Chae', 'Jamille', 'Jujuan', 'Meko', 'Mercury', 'Nana', 'Sham', 'Antiona', 'Arren', 'Azariah', 'Chanon', 'Dorcus', 'Fallon', 'Jamelle', 'Jovon', 'Kaylon', 'Kely', 'Keyan', 'Lashaw', 'Machel', 'Marchand', 'Mecca', 'Mikah', 'Nikko', 'Ra', 'Sai', 'Sha', 'Shaheen', 'Sharone', 'Taki', 'Tani', 'Tash', 'Tierre', 'Toma', 'Chandar', 'Akida', 'Allah', 'Bianco', 'Donyea', 'Quanah', 'Gaberial', 'Rashaun', 'Shawndale', 'Shermaine', 'Shondel', 'Ajene', 'Deaundra', 'Denell', 'Shalon', 'Ayodele', 'Darcus', 'Kalei', 'Keshawn', 'Marshon', 'Nehal', 'Samar', 'Shawan', 'Shondale', 'Shuron', 'Tajuan', 'Yarrow', 'Apurva', 'Ayo', 'Brandell', 'Denim', 'Deshay', 'Edel', 'Eren', 'Gemini', 'Hany', 'Jaimey', 'Jalani', 'Jorey', 'Jourdan', 'Jullian', 'July', 'Karan', 'Karron', 'Martrice', 'Mashawn', 'Micaiah', 'Ragen', 'Raymell', 'Rayn', 'Roshaun', 'Runako', 'Sherone', 'Shylo', 'Terrian', 'Yannis', 'Zuri', 'Free', 'Cheron', 'Nakai', 'Roshan', 'Cimarron', 'Jaimeson', 'Kristien', 'Mackenzie', 'Marki', 'Nichola', 'Sony', 'Zaire', 'Amari', 'Donae', 'Erine', 'Johari', 'Jonel', 'Kodie', 'Nakie', 'Ocean', 'Shawndel', 'Tu', 'Yuma', 'Charlemagne', 'Chey', 'Chun', 'Cobie', 'Corbie', 'Deundra', 'Jamae', 'Jamile', 'Juri', 'Kairi', 'Kierre', 'Kodi', 'Lequan', 'Meco', 'Mikko', 'Osha', 'Ryen', 'Tarin', 'Yamani', 'Snehal', 'Keron', 'Roshun', 'Shalin', 'Tashawn', 'Tran', 'Caton', 'Dung', 'Nguyen', 'Tyrie', 'Akai', 'An', 'Kamil', 'Luan', 'Seneca', 'Shadi', 'Timber', 'Adisa', 'Amen', 'Arrion', 'Darcell', 'Demetrise', 'Deni', 'Islam', 'Jaris', 'Kenyotta', 'Kesley', 'Luka', 'Najja', 'Nuri', 'Santonia', 'Suhail', 'Terez', 'Tristen', 'Zephyr', 'Anh', 'Asante', 'Ash', 'Ayan', 'Azizi', 'Chaffee', 'Danai', 'Danyal', 'Delancy', 'Jasdeep', 'Jaton', 'Jawon', 'Kashka', 'Kennyatta', 'Kenyota', 'Kindall', 'Lashane', 'Leshan', 'Madrid', 'Matti', 'Naphtali', 'Nashawn', 'Olayinka', 'Pele', 'Puneet', 'Raylan', 'Rochon', 'Ronelle', 'Scotland', 'Shantez', 'Shawon', 'Shey', 'Shukri', 'Tallis', 'Tarrie', 'Teran', 'Themis', 'Tien', 'Tranell', 'Uganda', 'Yun', 'Thanh', 'Gerren', 'Taji', 'Corian', 'Alexy', 'Aza', 'Bao', 'Dharma', 'Jama', 'Mali', 'Michah', 'Aarin', 'Abrian', 'Ashante', 'Avian', 'Divine', 'Fonta', 'Jontae', 'Karem', 'Mandeep', 'Tishawn', 'Aiman', 'Audi', 'Avion', 'Bandy', 'Blakeley', 'Brannigan', 'Brionne', 'Casy', 'Chaska', 'Chau', 'Chianti', 'Dai', 'Dareen', 'Deondrea', 'Edy', 'Fredi', 'Gabreil', 'Gariel', 'Jacyn', 'Ji', 'Josey', 'Jwan', 'Ka', 'Kashawn', 'Khanh', 'Koren', 'Lanel', 'Li', 'Manpreet', 'Marquie', 'Montra', 'Reshawn', 'Samora', 'Senica', 'Sevan', 'Shiron', 'Shoney', 'Sincere', 'Tanaka', 'Tarran', 'Trenity', 'Zee', 'Jontue', 'Rhian', 'Nakoma', 'Quanta', 'Devlyn', 'Lam', 'Brittan', 'Chen', 'Joshlin', 'Keagan', 'Neema', 'Tyne', 'Aaryn', 'Aquila', 'Daylin', 'Donsha', 'Ehrin', 'Garyn', 'Ibis', 'Jonell', 'Keonte', 'Leshaun', 'Mazi', 'Mirza', 'Mishael', 'Rameen', 'Ti', 'Trinidy', 'Wynell', 'Abijah', 'Amadi', 'Carron', 'Chea', 'Davonne', 'Deavon', 'Demery', 'Jaquay', 'Jehan', 'Jernell', 'Joss', 'Kamali', 'Kehinde', 'Kyan', 'Latrail', 'Mako', 'Montea', 'Mykel', 'Norell', 'Raynel', 'Ryna', 'Schyler', 'Shamone', 'Surya', 'Uchenna', 'Arien', 'Kene', 'Shaquan', 'Codi', 'Dae', 'Jonta', 'Anoop', 'Davan', 'Katrell', 'Koa', 'Laquinn', 'Ly', 'Mykal', 'Raeshawn', 'Shammah', 'Adama', 'Demaris', 'Donye', 'Essa', 'Kamari', 'Khali', 'Lakota', 'Ramee', 'Riko', 'Romelle', 'Shin', 'Amandeep', 'Aryan', 'Camren', 'Chastin', 'Dalyn', 'Domenique', 'Donshay', 'Elisah', 'Hoa', 'Jacquay', 'Joplin', 'Keonta', 'Koty', 'Mychel', 'Noa', 'Shadee', 'Shamarr', 'Sina', 'Truth', 'Tyan', 'Kiko', 'Cameo', 'Atari', 'Germany', 'Saman', 'Temitope', 'Jolan', 'Natha', 'Nery', 'Rael', 'Ramiah', 'Shiraz', 'Hien', 'Ishi', 'Jemiah', 'Kenyell', 'Quante', 'Shamari', 'Brookes', 'Cairo', 'Chade', 'Jovonne', 'Kealoha', 'Kelechi', 'Latrelle', 'Lerin', 'Narayana', 'Naseem', 'Tashon', 'Tionne', 'Adali', 'Adeyinka', 'Amrit', 'Ashlin', 'Azhar', 'Bai', 'Bleu', 'Chamel', 'Dakotah', 'Dameron', 'Jael', 'Jamaris', 'Jasey', 'Jentry', 'Jurell', 'Keyonta', 'Kishon', 'Lei', 'Marquee', 'Maxi', 'Meng', 'Renel', 'Ryn', 'Shamell', 'Ta', 'Tacoma', 'Tone', 'Vegas', 'Kao', 'Cha', 'Brandis', 'Devyn', 'Dontia', 'Alaa', 'Jamere', 'Seng', 'Tuyen', 'Abiola', 'Brae', 'Doan', 'Dondra', 'Emon', 'Magic', 'Nai', 'Shiva', 'Terin', 'Tho', 'Ying', 'Abriel', 'Adraine', 'Adryan', 'Ajai', 'Brenn', 'Brin', 'Chez', 'Coree', 'Doua', 'Dustine', 'Georgio', 'Gurpreet', 'Jahara', 'Jariah', 'Javonne', 'Nghi', 'Rane', 'Reda', 'Sher', 'Shi', 'Shoua', 'Terraine', 'Tylar', 'Vy', 'Yari', 'Argelis', 'Chai', 'Houa', 'Yang', 'Cher', 'Edi', 'Kylen', 'Shaylon', 'Skylor', 'Soua', 'Jamiah', 'Jaspreet', 'Marchella', 'Tian', 'Tristin', 'Bora', 'Bracey', 'Chrishawn', 'Dao', 'Ge', 'Harpreet', 'Jasmon', 'Kang', 'Keishawn', 'Kelin', 'Masada', 'Nicko', 'Sabri', 'Tola', 'Uzoma', 'Afsheen', 'Alexus', 'Cache', 'Cameran', 'Demitrice', 'Deontra', 'Desmone', 'Diamon', 'Giang', 'Jasman', 'Jasmond', 'Jermany', 'Johntae', 'Jupiter', 'Kenly', 'Khalis', 'Kham', 'Lavonta', 'Mital', 'Nema', 'Nur', 'Ramelle', 'Ryley', 'Soo', 'Vershawn', 'Wen', 'Yoni', 'Trystan', 'Arya', 'Chaise', 'Ching', 'Chezare', 'Antwana', 'Cagney', 'Kha', 'Royale', 'Tamaris', 'Tavita', 'Catlin', 'Chayse', 'Diep', 'Emmanuelle', 'Jabri', 'Kayon', 'Kele', 'Kelen', 'Kona', 'Ling', 'Oluwaseun', 'Sa', 'Say', 'Sok', 'Tauren', 'Yue', 'Anis', 'Brandel', 'Brittin', 'Caylen', 'Cristan', 'Destine', 'Dior', 'Donshae', 'Gaelen', 'Halen', 'Jaryn', 'Jontay', 'Jordin', 'Jovonn', 'Justi', 'Lo', 'Nissan', 'Raheel', 'Rya', 'Seville', 'Sokha', 'Su', 'Tavish', 'Toshua', 'Yona', 'Infant', 'Colbey', 'Hau', 'Perris', 'Sopheap', 'Airon', 'Astin', 'Javone', 'Loi', 'Mong', 'Phan', 'Brighton', 'Brogan', 'Damie', 'Hardeep', 'Jazmon', 'Jordie', 'Journey', 'Perseus', 'Rondelle', 'Rotha', 'Tuong', 'Yi', 'Amauri', 'Arias', 'Branigan', 'Callahan', 'Cameren', 'Cartier', 'Chantha', 'Charone', 'Clancey', 'Coey', 'Da', 'England', 'Imo', 'Jazz', 'Kailen', 'Ker', 'Keyshawn', 'Koree', 'Krystian', 'Martelle', 'Oluwatosin', 'Rany', 'Rorey', 'Shermain', 'Taree', 'Uchechukwu', 'Xai', 'Xue', 'Yasha', 'Eldra', 'Allex', 'Ragene', 'Chatham', 'Mena', 'Saron', 'Iren', 'Jaque', 'Navdeep', 'Ody', 'Chiron', 'Corrigan', 'Oriel', 'Talor', 'Tegan', 'Zong', 'Anmol', 'Artemis', 'Austine', 'Austyn', 'Bryann', 'Brye', 'Franki', 'Gal', 'Jacquese', 'Karee', 'Kharis', 'Lian', 'Marquelle', 'Marvelous', 'Ratha', 'Sheen', 'Skyy', 'Sophear', 'Soriya', 'Teren', 'Ya', 'Yael', 'Yoon', 'Narin', 'Jen', 'Britian', 'Channin', 'Mattison', 'Na', 'Rhen', 'Sophana', 'Anik', 'Bayan', 'Brya', 'Carsen', 'Larelle', 'Markelle', 'Sea', 'Seena', 'Shie', 'Tolulope', 'Alin', 'Brenin', 'Darean', 'Demeatrice', 'Femi', 'Jardin', 'Jazzman', 'Kayron', 'Kindle', 'Ko', 'Krish', 'Kristain', 'Maika', 'Neng', 'Salam', 'Shadie', 'Shayon', 'Shyler', 'Skyeler', 'Suan', 'Vanny', 'Oshea', 'Dekota', 'Chandara', 'Yuki', 'Cordelle', 'Mykael', 'Shamik', 'Alexx', 'Caylan', 'Caylon', 'Codee', 'Collyn', 'Jazmond', 'Kashmere', 'Kelyn', 'Mackenzy', 'Mikale', 'Sayre', 'Shemaiah', 'Tha', 'Alla', 'Armani', 'Ashtin', 'Bona', 'Brendell', 'Brittian', 'Cayton', 'Colbie', 'Deaven', 'Gabriell', 'Kevi', 'Ku', 'Kyrie', 'Makana', 'Michon', 'Mycah', 'Nazaret', 'Santanna', 'Schylar', 'Shahed', 'Jovi', 'Karrington', 'Avanti', 'Channy', 'Domanique', 'Kolya', 'Camerin', 'Derby', 'Evann', 'Kendre', 'Sokhom', 'Sophanna', 'Sothea', 'Tra', 'Aley', 'Camrin', 'Camryn', 'Chayanne', 'Darragh', 'Gabby', 'Jonquil', 'Mykell', 'Rothana', 'Shadow', 'Adebola', 'Adrine', 'Alexandr', 'Asriel', 'Cailen', 'Chantra', 'Daryan', 'Delorian', 'Devian', 'Devinn', 'Esli', 'Jacquel', 'Jaylin', 'Jireh', 'Kamaron', 'Kylin', 'Lexington', 'Neima', 'Rei', 'Riely', 'Sagan', 'Sarom', 'Shakti', 'Shamil', 'Sitha', 'Suad', 'Wrenn', 'Yinessa', 'Nicco', 'Braylin', 'Kiante', 'Kodee', 'Valon', 'Maison', 'Wisdom', 'Coren', 'Domique', 'Freddi', 'Hamdi', 'Jamisen', 'Jaquel', 'Lundon', 'Qamar', 'Saber', 'Tyger', 'Abrar', 'Armone', 'Breion', 'Brione', 'Dacota', 'Damari', 'Davine', 'Dayln', 'Domingue', 'Domnique', 'Donique', 'Dor', 'Emanuelle', 'Evian', 'Evyn', 'Gin', 'Jante', 'Jeryn', 'Jhordan', 'Kace', 'Kallan', 'Kionte', 'Matteson', 'Mckenzy', 'Mishal', 'Parminder', 'Simran', 'Suman', 'Talin', 'Talyn', 'Trea', 'Zhi', 'Unnamed', 'Christia', 'Kaylor', 'Deavin', 'Yanick', 'Yuuki', 'Ashten', 'Dasmine', 'Esa', 'Kerrington', 'Kiari', 'Kyre', 'Ryian', 'Un', 'Avante', 'Chisom', 'Davionne', 'Desmin', 'Dorean', 'Jarae', 'Jaz', 'Jesee', 'Jovann', 'Kamerin', 'Kamrin', 'Lunden', 'Nil', 'Radell', 'Ryin', 'Sovanna', 'Terryn', 'Toryn', 'Cai', 'Cotie', 'Cree', 'Daurice', 'Deavion', 'Devvon', 'Doninique', 'Dresden', 'Dyan', 'Francesc', 'Graysen', 'Janal', 'Janiel', 'Jaquell', 'Jaquise', 'Jaree', 'Jonnell', 'Juna', 'Kahri', 'Kalle', 'Kazi', 'Keante', 'Kersey', 'Kiare', 'Montrese', 'Mykeal', 'Nalin', 'Neshawn', 'Nike', 'Nyia', 'Pariss', 'Samon', 'Shing', 'Shinya', 'Shiya', 'Shola', 'Ski', 'Skiler', 'Skyelar', 'Storme', 'Tarae', 'Tennell', 'Trashawn', 'Tylin', 'Ye', 'Zacharee', 'Kiree', 'Jacquis', 'Javoni', 'Brecken', 'Rosean', 'Ameya', 'Dylin', 'Haiden', 'Jance', 'Jimmi', 'Jovanne', 'Keyontae', 'Kyung', 'Mayson', 'Shajuan', 'Sukhdeep', 'Blayke', 'Brentlee', 'Breonte', 'Briley', 'Chanler', 'Chavon', 'Chayan', 'Coti', 'Darae', 'Gurjot', 'Hady', 'Indiana', 'Kaelen', 'Kailan', 'Kairy', 'Kayland', 'Khyrie', 'Kolbi', 'Korbyn', 'Omotayo', 'Onyx', 'Rielly', 'Sarin', 'Senai', 'Shaquelle', 'Shayde', 'Adonai', 'Ammer', 'Andrean', 'Armoni', 'Aury', 'Cailean', 'Demarie', 'Dennell', 'Domineque', 'Donyae', 'Giordan', 'Jacquell', 'Jacquise', 'Jesy', 'Jimin', 'Jontel', 'Joo', 'Jordain', 'Kendelle', 'Kessler', 'Kolbey', 'Kyri', 'Luise', 'Manjot', 'Raevon', 'Reiss', 'Sae', 'Samuela', 'Samuelle', 'Skylier', 'Tanveer', 'Taylen', 'Yarden', 'Diamante', 'Infantof', 'Dillyn', 'Jodeci', 'Majd', 'Brier', 'Nakota', 'Nicoli', 'Taje', 'Tieler', 'Eddi', 'Kameran', 'Khori', 'Ofir', 'Britan', 'Courtlin', 'Ferrari', 'Jaiden', 'Kolbie', 'Swayze', 'Teshawn', 'Caylor', 'Gagandeep', 'Hadyn', 'Imar', 'Jaqua', 'Kairee', 'Kamani', 'Kanan', 'Karlen', 'Keilen', 'Logen', 'Manmeet', 'Mccauley', 'Ping', 'Revon', 'Aijalon', 'Alexiz', 'Avory', 'Blaike', 'Capree', 'Chevon', 'Dominquie', 'Dontavia', 'Eliyah', 'Elya', 'Jamani', 'Jasmeet', 'Javae', 'Jency', 'Jole', 'Kameryn', 'Karsen', 'Kevonne', 'Kindel', 'Londen', 'Luv', 'Mani', 'Morgon', 'Raylin', 'Sachary', 'Shakell', 'Shalen', 'Shamere', 'Shamichael', 'Shaughnessy', 'Siu', 'Takari', 'Taylan', 'Terae', 'Trayce', 'Tristyn', 'Xzavia', 'Caelan', 'Jaleen', 'Kylar', 'Javonni', 'Keontay', 'Demaria', 'Grae', 'Shu', 'Atta', 'Chaning', 'Cobi', 'Dacotah', 'Darrein', 'Deshante', 'Dilyn', 'Domenik', 'Dominek', 'Edner', 'Jourden', 'Keylin', 'Ronnelle', 'Aby', 'Beckett', 'Chrishaun', 'Chrisna', 'Dakkota', 'Dondrea', 'Esly', 'Harsimran', 'Indy', 'Mackinley', 'Navjot', 'Olamide', 'Peris', 'Reily', 'Reny', 'Tenzin', 'Zacari', 'Arshia', 'Brennyn', 'Caelin', 'Camil', 'Connelly', 'Dali', 'Darryan', 'Demaree', 'Deryn', 'Deshonte', 'Destyn', 'Devyne', 'Dilpreet', 'Dilynn', 'Dylann', 'Edwidge', 'Elison', 'Haben', 'Harjot', 'Hikaru', 'In', 'Janvier', 'Kaegan', 'Kallin', 'Kawena', 'Laquay', 'Leeor', 'Liron', 'Maciel', 'Meiko', 'Micale', 'Miciah', 'Quincee', 'Simranjit', 'Ting', 'Shaquel', 'Shaquell', 'Damarea', 'Jayln', 'Jaelin', 'Rai', 'Cypress', 'Dakodah', 'Dakotta', 'Dekoda', 'Hannan', 'Jaelan', 'Kadian', 'Kyrin', 'Oshai', 'Rajdeep', 'Raylee', 'Shaylan', 'Tajai', 'Temitayo', 'Thuong', 'Ariya', 'Asten', 'Ayomide', 'Breckin', 'Darrean', 'Dylyn', 'Emari', 'Jaice', 'Jaki', 'Mclane', 'Nekoda', 'Rien', 'Shams', 'Shavaughn', 'Simi', 'Sukhjit', 'Sully', 'Teegan', 'Tyjae', 'Arri', 'Chene', 'Colbi', 'Daly', 'Davene', 'Fathi', 'Haydin', 'Heli', 'Ismar', 'Jacobia', 'Jadin', 'Jaloni', 'Jee', 'Jensy', 'Jowell', 'Kionne', 'Krishawn', 'Kwanzaa', 'Kyante', 'Lawon', 'Machenzie', 'Miccah', 'Mikhal', 'Rayen', 'Reshon', 'Sagen', 'Sklyer', 'Tokunbo', 'Tylo', 'Ugonna', 'Victorious', 'Zacaria', 'Jadan', 'Nasim', 'Kenyari', 'Laredo', 'Reiley', 'Chigozie', 'Kadyn', 'Camen', 'Chaquan', 'Edis', 'Jaquae', 'Keni', 'Makay', 'Pheonix', 'Prabhjot', 'Riyan', 'Tajae', 'Angell', 'Daryen', 'Jaydin', 'Kayman', 'Kemani', 'Lakee', 'Niger', 'Oluwaseyi', 'Regen', 'Rylin', 'Sabre', 'Trystin', 'Xiao', 'Zyaire', 'Ashay', 'Asian', 'Averey', 'Braxtyn', 'Callaghan', 'Chandlar', 'Cortlyn', 'Dahn', 'Daneal', 'Fatin', 'Jaquese', 'Jaydn', 'Jlyn', 'Karn', 'Kire', 'Kiva', 'Lakoda', 'Laquarius', 'Matisse', 'Mian', 'Naje', 'Nesly', 'Nocona', 'Phalen', 'Phenix', 'Reign', 'Rieley', 'Seton', 'Shaquane', 'Skylur', 'Slone', 'Subin', 'Tahjae', 'Tahje', 'Trysten', 'Unkown', 'Ahmari', 'Avrey', 'Demauria', 'Tru', 'Damaria', 'Mccartney', 'Ryver', 'Aerion', 'Avry', 'Canan', 'Jamarea', 'Jamoni', 'Melek', 'Mori', 'Nassim', 'Ravneet', 'Shaden', 'Shadon', 'Shamonte', 'Shaquez', 'Tameron', 'Abir', 'Aeon', 'Airen', 'Apache', 'Arrian', 'Aryon', 'Asheton', 'Bradlie', 'Cyan', 'Daryian', 'Daylyn', 'Gurkirat', 'Jailin', 'Kahlen', 'Kirin', 'Mckinnley', 'Satya', 'Tahari', 'Tahjai', 'Tahsin', 'Tennessee', 'Zhane', 'Abishai', 'Aimen', 'Amanpreet', 'Amran', 'Asanti', 'Ashden', 'Baley', 'Braelin', 'Breaun', 'Brenyn', 'Breshawn', 'Camari', 'Damoni', 'Dashane', 'Destri', 'Dristin', 'Graye', 'Jahdai', 'Jahzeel', 'Jaire', 'Jamonie', 'Justise', 'Kahlan', 'Kahlin', 'Kerrion', 'Kimari', 'Login', 'Maeson', 'Maki', 'Manveer', 'Masyn', 'Mattingly', 'Mor', 'Nesta', 'Nijah', 'Peni', 'Reace', 'Sameen', 'Sarang', 'Sathya', 'Schuylar', 'Shayron', 'Sneh', 'Tagan', 'Tonee', 'Tylyn', 'Yury', 'Mykelti', 'Bralyn', 'Kirklyn', 'Elishah', 'Jayni', 'Mykah', 'Riese', 'Tilar', 'Aleksi', 'Dristen', 'Jie', 'Kemari', 'Mekel', 'Trystyn', 'Areon', 'Erian', 'Gabreal', 'Jaedin', 'Jahni', 'Jailan', 'Jamary', 'Kamaree', 'Kimoni', 'Laakea', 'Maciah', 'Taite', 'Takai', 'Zavia', 'Aaris', 'Adar', 'Arda', 'Arshdeep', 'Ashtan', 'Bar', 'Bridge', 'Coi', 'Dima', 'Elian', 'Giani', 'Jaskirat', 'Kamarri', 'Kindred', 'Kiren', 'Kristyan', 'Marciel', 'Rhyse', 'Semaje', 'Taige', 'Teva', 'Tieran', 'Tyrea', 'Zarin', 'Kymani', 'Tajay', 'Azure', 'Rahat', 'Reise', 'Amaree', 'Giavanni', 'Trew', 'Chevie', 'Mykale', 'Aidyn', 'Alaye', 'Bralen', 'Breylin', 'Delijah', 'Demoni', 'Enes', 'Faran', 'Gabryel', 'Gianny', 'Harmeet', 'Jasiri', 'Jianni', 'Kaimi', 'Kemoni', 'Madden', 'Nahid', 'Nation', 'Sakari', 'Scyler', 'Sukhman', 'Tamari', 'Teagen', 'Tyjah', 'Xian', 'Amisadai', 'Armanni', 'Ashe', 'Aziah', 'Braylyn', 'Camdyn', 'Cire', 'Damilola', 'Dodi', 'Gagan', 'Hilal', 'Jaidan', 'Jaziah', 'Ju', 'Juno', 'Kahler', 'Kahmari', 'Kalijah', 'Keaghan', 'Keylen', 'Keymani', 'Keyunta', 'Lear', 'Mahari', 'Maiko', 'Majestic', 'Maui', 'Michiah', 'Onyekachi', 'Peniel', 'Preet', 'Remmy', 'Rhiley', 'Sailor', 'Tavonne', 'Tyjai', 'Tyrion', 'Yani', 'Zohar', 'Samari', 'Pacey', 'Cayse', 'Eisley', 'Jaidyn', 'Tenzing', 'Ariyan', 'Giavonni', 'Amarri', 'Cadyn', 'Dawsyn', 'Harkirat', 'Ilia', 'Jaedyn', 'Makell', 'Teigan', 'Amori', 'Jermani', 'Mekiah', 'Tanay', 'Braidy', 'Braidyn', 'Callaway', 'Deaundrea', 'Graceson', 'Harmanpreet', 'Julani', 'Kalai', 'Kamoni', 'Kmari', 'Loghan', 'Nakari', 'Reilley', 'Roen', 'Ronit', 'Shine', 'Skylr', 'Tagen', 'Tziah', 'Aireon', 'Aldyn', 'Alique', 'Annas', 'Arreon', 'Asonte', 'Calvary', 'Cordae', 'Dalynn', 'Damonie', 'Di', 'Graison', 'Haidyn', 'Jaylyne', 'Johany', 'Jourdin', 'Katin', 'Kerian', 'Khole', 'Layke', 'Lenyn', 'Moon', 'Peregrine', 'Rahi', 'Sakai', 'Santrell', 'Shevy', 'Skylan', 'Somtochukwu', 'Tiante', 'Traice', 'Yanis', 'Yeshia', 'Adriann', 'Jaidin', 'Chidera', 'Deaveon', 'Mayan', 'Notnamed', 'Reyhan', 'Tatem', 'Zamari', 'Zekiah', 'Armanie', 'Kaedyn', 'Myan', 'Siah', 'Azion', 'Cyncere', 'Finnley', 'Janari', 'Jaydyn', 'Naki', 'Teigen', 'Zaide', 'Abba', 'Adyn', 'Bayly', 'Chinemerem', 'Deovion', 'Jahaan', 'Jaqualyn', 'Kadison', 'Kaidyn', 'Kamyron', 'Kayton', 'Kemonie', 'Kolbee', 'Konnar', 'Lamari', 'Logyn', 'Najay', 'Oluwadamilola', 'Pranjal', 'Renner', 'Rily', 'Se', 'Sharan', 'Shion', 'Sukhpreet', 'Tamron', 'Tane', 'Aareon', 'Angelus', 'Cailan', 'Davee', 'Deivion', 'Emauri', 'Idrissa', 'Jacinth', 'Jadiah', 'Jerusalem', 'Kamauri', 'Kanai', 'Karion', 'Kelijah', 'Lyrik', 'Maclaine', 'Najae', 'Nasiah', 'Navi', 'Nijay', 'Nohea', 'Odera', 'Psalm', 'Rajae', 'Sevyn', 'Shamarie', 'Shavontae', 'Shayvon', 'Skylen', 'Yacine', 'Jadis', 'Ayaan', 'Baylin', 'Elean', 'Laterrian', 'Safi', 'Bless', 'Kayde', 'Sani', 'Shaddai', 'Ariez', 'Fenix', 'Jaylenn', 'Krishaun', 'Mahin', 'Nature', 'Rahja', 'Rmani', 'Tione', 'Amillion', 'Anias', 'Broghan', 'Dariyan', 'Jadien', 'Karna', 'Lijah', 'Lochlyn', 'Mishawn', 'Naziah', 'Nermin', 'Ogechukwu', 'Opeyemi', 'Oreoluwa', 'Qi', 'Rhythm', 'Riece', 'Romani', 'Saje', 'Sheldyn', 'Sonam', 'Soul', 'Taegen', 'Taymar', 'Temiloluwa', 'Aarya', 'Benet', 'Caidyn', 'Davae', 'Ekene', 'Ekin', 'Elim', 'Elvi', 'Hananiah', 'Isia', 'Jadian', 'Jassiah', 'Kamdyn', 'Katari', 'Kaydn', 'Kayler', 'Kweli', 'Kyi', 'Kymari', 'Lennix', 'Maysen', 'Mirage', 'Nijae', 'Noha', 'Rilley', 'Savonne', 'Sayge', 'Taijae', 'Tanish', 'Thienan', 'Trust', 'Zo', 'Maven', 'Shyne', 'Lennyn', 'Anay', 'Tsion', 'Ilian', 'Alija', 'Bryley', 'Eniola', 'Jahel', 'Kamalei', 'Kashmir', 'Keimani', 'Paycen', 'Reyan', 'Sekai', 'Tamauri', 'Taygen', 'Atzin', 'Bly', 'Gabrieal', 'Ifeoluwa', 'Jaiel', 'Jhayden', 'Jobi', 'Noname', 'Nyjah', 'Quetzal', 'Rhylan', 'Tallyn', 'Tamba', 'Zalyn', 'Abey', 'Ajae', 'Amey', 'Arieon', 'Aubin', 'Azari', 'Bailyn', 'Blakelee', 'Blessed', 'Boluwatife', 'Burkley', 'Chapel', 'Copper', 'Dailin', 'Dmani', 'Franc', 'Jeylen', 'Jorryn', 'Kency', 'Kenni', 'Kymoni', 'Malijah', 'Marjon', 'Mattia', 'Mckel', 'Nao', 'Nyaire', 'Sahej', 'Stav', 'Taelin', 'Taigen', 'Tazmin', 'Teagin', 'Tiegan', 'Tkai', 'Toluwanimi', 'Ziyan', 'Krishi', 'Denym', 'Haedyn', 'Zi', 'Aimar', 'Amahri', 'Harnoor', 'Simar', 'Teagon', 'Kosisochukwu', 'Shawntrell', 'Zaiah', 'Amaurie', 'Danye', 'Jasiyah', 'Jaylien', 'Kayan', 'Valin', 'Aalijah', 'Amorie', 'Ayrion', 'Delyn', 'Deoveon', 'Dioni', 'Eddye', 'Haydyn', 'Ilhan', 'Kierin', 'Rhyen', 'Shailen', 'Tayne', 'Tekoa', 'Armari', 'Cambridge', 'Chastain', 'Conlee', 'Danari', 'Deylin', 'Future', 'Jakaylin', 'Janeil', 'Jaydenn', 'Julianni', 'Kemauri', 'Kensly', 'Lakeland', 'Lyrick', 'Maisen', 'Malakia', 'Mikayle', 'Neziah', 'Oluwademilade', 'Oyindamola', 'Peja', 'Portland', 'Shamire', 'Shande', 'Shemari', 'Theryn', 'Torryn', 'Vallen', 'Gracin', 'Khamani', 'Kunga', 'Eisa', 'Amarii', 'Life', 'Tashi', 'Tavi', 'Aliyan', 'Brighten', 'Dalys', 'Damarie', 'Juliani', 'Lakai', 'Ruari', 'Alijha', 'Cashe', 'Chosen', 'Dearion', 'Jhai', 'Juni', 'Kamori', 'Mcallister', 'Nyel', 'Quian', 'Samauri', 'Temidayo', 'Torii', 'Wrigley', 'Aarian', 'Amaziah', 'Anael', 'Bostyn', 'Brekyn', 'Eastyn', 'Ezariah', 'Gurnoor', 'Haru', 'Jadenn', 'Jaqui', 'Jihan', 'Jolen', 'Kaydyn', 'Khalee', 'Khiari', 'Leny', 'Maclaren', 'Malikah', 'Nyre', 'Oluwapelumi', 'Pita', 'Shamaree', 'Skyller', 'Soma', 'Tayde', 'Taygan', 'Tiki', 'Vallon', 'Amanti', 'Jandel', 'Jaxyn', 'Aviyon', 'Espn', 'Kahne', 'Kendis', 'Najai', 'Camani', 'Ioan', 'Kenyae', 'Raeden', 'Agam', 'Bradee', 'Jasyah', 'Keatyn', 'Khamoni', 'Rumi', 'Zy', 'Aamari', 'Azaryah', 'Brantlee', 'Breece', 'Dariell', 'Hemi', 'Jiwoo', 'Jostyn', 'Keymoni', 'Konya', 'Mizan', 'Oshen', 'Prabhnoor', 'Sanay', 'Tijay', 'Aivan', 'Amarey', 'Anesti', 'Ariyon', 'Avo', 'Brylin', 'Edden', 'Emone', 'Georgy', 'Hero', 'Ibukunoluwa', 'Jovonnie', 'Kanari', 'Kashi', 'Kauri', 'Kayen', 'Keimari', 'Kelynn', 'Malachia', 'Markai', 'Mckell', 'Namari', 'Nanda', 'Oluwatomisin', 'Omani', 'Tochi', 'Yali', 'Yareth', 'Yoltzin', 'Zaelyn', 'Zai', 'Dashel', 'Kailand', 'Ale', 'Breyan', 'Camarie', 'Dezmyn', 'Michi', 'Solace', 'Tegen', 'Ajalon', 'Camauri', 'Espyn', 'Yandy', 'Camyron', 'Dari', 'Jadyne', 'Jeremya', 'Krys', 'Kylian', 'Lamoni', 'Mclaren', 'Oluwanifemi', 'Paysen', 'Syan', 'Tayen', 'Yaret', 'Abyan', 'Akie', 'Aleksis', 'Ashlon', 'Avyn', 'Ayomikun', 'Creedance', 'Dashell', 'Jonnah', 'Juelle', 'Malikia', 'Mckenly', 'Myaire', 'Mylin', 'Nickita', 'Owynn', 'Rayli', 'Shadyn', 'Sonni', 'Sovereign', 'Tamarr', 'Taydem', 'Toluwani', 'Tupou', 'Ramzee', 'Karmel', 'Kanyen', 'Kumari', 'Maziah', 'Vinci', 'Acelin', 'Georgi', 'Harbor', 'Jandy', 'Karsin', 'Macari', 'Makhari', 'Mateja', 'Yarel', 'Yarin', 'Zay', 'Athens', 'Frankye', 'Gamble', 'Jazaiah', 'Kache', 'Keagyn', 'Kimi', 'Maddyx', 'Ngawang', 'Nirel', 'Nouri', 'Reili', 'Sabriel', 'Timari', 'Xyon', 'Zeal', 'Aba', 'Alii', 'Areyon', 'Atreya', 'Bailor', 'Billi', 'Breslin', 'Eaden', 'Ekam', 'Esosa', 'Fela', 'Jandell', 'Jaylein', 'Jazari', 'Jhordyn', 'Johnni', 'Kahlee', 'Kamaurie', 'Kashe', 'Kennison', 'Lenix', 'Loyalty', 'Madyx', 'Messiyah', 'Nylen', 'Paiden', 'Salud', 'Sehaj', 'Seraph', 'Sinceer', 'Tannis', 'Tasi', 'Taytem', 'Trishawn', 'Zailyn', 'Jayel', 'Traeh', 'Joset', 'Akon', 'Kemori', 'Tacori', 'Zaylyn', 'Harjas', 'Kamsiyochukwu', 'Linkyn', 'Tsering', 'Alyric', 'Amyre', 'Bentlee', 'Chrys', 'Jaydence', 'Jaydynn', 'Jermyah', 'Kariel', 'Riyaan', 'Zoel', 'Adean', 'Adryn', 'Anner', 'Auren', 'Ayren', 'Corda', 'Declyn', 'Eh', 'Hudsyn', 'Imri', 'Jarie', 'Kamarii', 'Kieryn', 'Lyan', 'Nassiah', 'Riel', 'Skyland', 'Uriyah', 'Adason', 'Adoniah', 'Agape', 'Aires', 'Aurion', 'Avriel', 'Calyx', 'Danila', 'Emjay', 'Eriyon', 'Erza', 'Honour', 'Jacki', 'Jaimison', 'Jasi', 'Jinan', 'Kamorie', 'Keaire', 'Keimoni', 'Laylen', 'Munachimso', 'Ridha', 'Ryel', 'Shamair', 'Shamauri', 'Success', 'Temari', 'Tyme', 'Yamel', 'Zakariyah', 'Zyian', 'Paxtyn', 'Raedyn', 'Reven', 'Joen', 'Peyson', 'Rainn', 'Ryce', 'Ryelin', 'Stellar', 'Aidynn', 'Camaree', 'Cashlin', 'Dangel', 'Drelynn', 'Haize', 'Ijah', 'Inioluwa', 'Jahnai', 'Jasmir', 'Kadynn', 'Kaena', 'Lohgan', 'Memphys', 'Riven', 'Shiah', 'Toluwalase', 'Xyion', 'Altair', 'Audyn', 'Elmi', 'Grasyn', 'Haiven', 'Idel', 'Jadeen', 'Jahzel', 'Jamesyn', 'Jatori', 'Jewelian', 'Kazu', 'Keran', 'Macaiah', 'Macaire', 'Maycen', 'Morrissey', 'Remey', 'Reve', 'Sylver', 'Temani', 'Teygan', 'Winner', 'Yandi', 'Zamarie', 'Zaryn', 'Mishon', 'Euriah', 'Aideen', 'Kacyn', 'Leelynn', 'Weslyn', 'Adrienn', 'Brynnen', 'Elham', 'Khamryn', 'Zani', 'Andriel', 'Bera', 'Haydenn', 'Iyari', 'Jamyri', 'Joriah', 'Kilyn', 'Lennex', 'Mang', 'Musiq', 'Oluwatoni', 'Pennington', 'Sakhi', 'Theory', 'Armahni', 'Azayah', 'Cassiel', 'Corren', 'Dawnte', 'Elyah', 'Emrey', 'Graycin', 'Greylin', 'Haram', 'Jaazaniah', 'Jahmiah', 'Jasyiah', 'Jaydeen', 'Kiryn', 'Maurya', 'Moyosoreoluwa', 'Mursal', 'Oluwatise', 'Phinley', 'Rotem', 'Skyylar', 'Sri', 'Theone', 'Tinashe', 'Tylei', 'Yuchen', 'Zahari', 'Brees', 'Kaisyn', 'Oluwadarasimi', 'Krosby', 'Bentlei', 'Bradynn', 'Graesyn', 'Bemnet', 'Carmell', 'Cashmir', 'Rhyley', 'Trelynn', 'Ziel', 'Aoi', 'Ashdyn', 'Cadrian', 'Cena', 'Demilade', 'Finau', 'Jette', 'Kaigan', 'Keating', 'Syree', 'Tamare', 'Yuriah', 'Zihan', 'Abimbola', 'Amary', 'Amouri', 'Ayele', 'Azarya', 'Braydee', 'Connolly', 'Gabriyel', 'Harlym', 'Ireon', 'Kalae', 'Kingslee', 'Kirian', 'Lawsyn', 'Moo', 'Nessiah', 'Neylan', 'Peyden', 'Poe', 'Rhemy', 'Tresor', 'Wriley', 'Bentli', 'Loxley', 'Khilyn', 'Oluwasemilore', 'Fiyinfoluwa', 'Rafa', 'Rihan', 'Aleph', 'Arta', 'Byntlee', 'Caisyn', 'Hser', 'Kentley', 'Soe', 'Armonee', 'Astyn', 'Braylenn', 'Crosley', 'Jeylani', 'Kaidynn', 'Kaygen', 'Kayse', 'Makayden', 'Rozay', 'Tateum', 'Amarin', 'Aroosh', 'Arsha', 'Aryian', 'Azeriah', 'Baxley', 'Bravery', 'Camlin', 'Graisyn', 'Hargun', 'Jadean', 'Jeel', 'Khouri', 'Krymson', 'Laylan', 'Lenyx', 'Lyndan', 'Macayle', 'Maesen', 'Oluwaseyifunmi', 'Reylin', 'Waylynn', 'Zalynn', 'Joud', 'Kylenn', 'Mathai', 'Oluwatomi', 'Ferran', 'Nylin', 'Aubren', 'Ayrian', 'Braxtynn', 'Huntyr', 'Kentlee', 'Mathison', 'Mati', 'Moxley', 'Music', 'Nyx', 'Tama', 'Azaniah', 'Collynn', 'Erioluwa', 'Honest', 'Jayonni', 'Knightley', 'Maize', 'Neyamiah', 'Soryn', 'Vader', 'Chikamso', 'Huntlee', 'Braxlee', 'Chigozirim', 'Dah', 'Khalei', 'Noaah', 'Psalms', 'Raily', 'Zixuan', 'Abraxas', 'Amryn', 'Ariann', 'Arys', 'Bristen', 'Credence', 'Irah', 'Jaidence', 'Juneau', 'Lien', 'Lotanna', 'Meba', 'Nor', 'Syren', 'Alexiel', 'Arryn', 'Ayooluwa', 'Breez', 'Dreamer', 'Finesse', 'Finnlee', 'Jacole', 'Jemini', 'Joa', 'Joyden', 'Khymani', 'Lyrix', 'Maitreya', 'Munachi', 'Munachiso', 'Rhemi', 'Savya', 'Sehej', 'Semajae', 'Vishva', 'Yuxuan', 'Finnly', 'Gatlynn', 'Elliston', 'Io', 'Jorah', 'Revyn', 'Aavyn', 'Alai', 'Arona', 'Ashai', 'Bristin', 'Elshaddai', 'Jury', 'Rayel', 'Yinuo', 'Aari', 'Abiyah', 'Airin', 'Aree', 'Bixby', 'Elysium', 'Janas', 'Levian', 'Logahn', 'Mesiyah', 'Rise', 'Steely', 'Turi', 'Vali', 'Yahav', 'Mega', 'Oluwajomiloju', 'Addington', 'Huxlee', 'Phoenixx', 'Vivin', 'Kamsi', 'Morireoluwa', 'Olle', 'Amzi', 'Aurian', 'Dessiah', 'Kili', 'Admire', 'Ayoola', 'Beckette', 'Hilder', 'Karmon', 'Khalyn', 'Larken', 'Manhattan', 'Mehan', 'Nix', 'Rauri', 'Rmoni', 'Sehajpreet', 'Toki', 'Yixuan', 'Ziyi']
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [<matplotlib.lines.Line2D at 0x1d40e3d27f0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{5. Regression and Interaction
+Terms.}\label{regression-and-interaction-terms.}
+
+Run through the Jupyter Notebook from Thursday's class. You will have to
+download the data set yourselves. Then do the exercise of adding an
+interaction term. Explain what you see, and how it relates to the graph
+you obtain before adding the interaction term. That is, use plots /
+visualization, to argue convincingly that the interaction term should or
+shouldn't be there, and then tell us what this means.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{kidiq} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}stata}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ARM\PYZus{}Data/child.iq/kidiq.dta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{kidiq}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}    kid\_score  mom\_hs      mom\_iq  mom\_work  mom\_age
+         0         65     1.0  121.117529         4       27
+         1         98     1.0   89.361882         4       25
+         2         85     1.0  115.443165         4       27
+         3         83     1.0   99.449639         3       25
+         4        115     1.0   92.745710         4       27
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{kidiq}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{kidiq}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kid\PYZus{}iq\PYZus{}zscore/mom\PYZus{}iq\PYZus{}zscore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{kidiq}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kid\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{kidiq}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mom\PYZus{}iq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{kidiq}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The interaction term that was added is a ratio of the kid's score and
+the mom's score. Before it was added, there was no easy way to compare
+between the categorical data and the score of the child relative to how
+the mother performed. For example, if we wanted to see if the mom's work
+was related to how the kid would do, we would want to condition on how
+the mom did in the first place. The interaction term gives us this
+flexibility.
+
+Let us look at the mom\_work vs kid\_score graph (A) and the mom\_work
+vs kid\_iq\_score/mom\_iq\_score graph (B). In B, there seems to be less
+variance in work 3 than there is in work 3 of A. This might indicate
+that for the moms in that line of work, there is less of a difference in
+mom-kid iq scores
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
